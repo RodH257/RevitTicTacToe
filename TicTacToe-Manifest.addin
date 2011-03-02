@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Name>Start TicTacToe</Name>
+    <Assembly>C:\Devel\Personal\Revit\RevitTicTacToe\RevitTicTacToe\bin\Debug\RevitTicTacToe.dll</Assembly>
+    <AddInId>92c040b9-cb1d-4617-8775-86af01ccae2a</AddInId>
+    <FullClassName>RevitTicTacToe.Command</FullClassName>
+  </AddIn>
+</RevitAddIns>
