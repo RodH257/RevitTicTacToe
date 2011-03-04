@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="SAFFRON.arvixe.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="rttt.punchyn.com" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="True" profileName="Profile1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="rttt.punchyn.c_admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAAnjSXTJU2kCvFAWGreiX4AAAAAACAAAAAAAQZgAAAAEAACAAAABXEpg9BbZEWQWl1fCKMOtzV8IViEhjD8ms6bHtWTnF8QAAAAAOgAAAAAIAACAAAACdBgc8bG17s4DlvinmkfiYPn5DLRXpiMs1FFGMhyYaDCAAAACUMux/d5AXwEiZAkniMCpWw6eqsISGBG0+UDcfsP3hHUAAAACsC78v+HKFLLp6PVaRDxyhPpVVtBb+d3giRLNoCv0q4NbrOtlY+ff31YyKG09tcjs2KL+g7PAeODTXlxLMhWeq" SelectedForPublish="True">
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Views/Home/Index.aspx" publishTime="03/03/2011 23:17:28" />
+    <file relUrl="packages.config" publishTime="03/04/2011 18:16:20" />
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="bin/Elmah.dll" publishTime="03/04/2011 18:16:20" />
+    <file relUrl="bin/TicTacToeServer.pdb" publishTime="03/04/2011 18:17:07" />
+    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Web.config" publishTime="03/04/2011 18:17:22" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Views/Web.config" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Content/Site.css" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Global.asax" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="bin/TicTacToeServer.dll" publishTime="03/04/2011 18:17:07" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="03/03/2011 22:55:30" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="03/03/2011 22:55:30" />
+  </publishProfile>
+</publishData>
