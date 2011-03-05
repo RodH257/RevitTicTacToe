@@ -10,7 +10,7 @@ namespace RevitTicTacToe
 {
     public class MultiplayerServer
     {
-        private const string BASE_URL = "http://tictactoe.punchyn.com/";
+        private const string BASE_URL = "http://rttt.punchyn.com/";
         public string StartNewGame()
         {
             string result = NewPostRequest("Game/NewGame/", new Dictionary<string, string>());
