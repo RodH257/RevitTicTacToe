@@ -7,6 +7,9 @@ using Autodesk.Revit.DB;
 
 namespace RevitTicTacToe
 {
+    /// <summary>
+    /// Class for local play
+    /// </summary>
     class LocalGame: IGame
     {
         private UIDocument _uiDoc;
@@ -73,8 +76,9 @@ namespace RevitTicTacToe
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (Autodesk.Revit.Exceptions.OperationCanceledException)
                 {
+                    //User cancelled
                     return;
                 }
             }

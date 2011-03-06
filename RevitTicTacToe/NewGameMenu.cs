@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace RevitTicTacToe
 {
+    /// <summary>
+    /// Menu for starting a new game
+    /// </summary>
     public partial class NewGameMenu : Form
     {
         private bool _onlineSelected = false;
@@ -33,6 +36,13 @@ namespace RevitTicTacToe
         {
             _onlineSelected = true;
             DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            //rests the score tally
+            DialogResult = DialogResult.No;
             Close();
         }
     }

@@ -9,13 +9,16 @@ using System.Windows.Forms;
 
 namespace RevitTicTacToe
 {
+    /// <summary>
+    /// Form displayed when waiting on another player
+    /// </summary>
     public partial class WaitingOnOtherPlayerForm : Form
     {
-        private MultiplayerServer _server;
+        private OnlineServer _server;
         private int _sessionid;
         private string _currentPlayerId;
         private int _oppositionsMove;
-        public WaitingOnOtherPlayerForm(MultiplayerServer server, int sessionid, string currentPlayerId)
+        public WaitingOnOtherPlayerForm(OnlineServer server, int sessionid, string currentPlayerId)
         {
             _server = server;
             _sessionid = sessionid;
@@ -30,7 +33,7 @@ namespace RevitTicTacToe
         {
             //check if the other player has had their go yet
             _oppositionsMove = _server.CheckForOppositionsMove(_sessionid, _currentPlayerId);
-            if (_oppositionsMove > 0)
+            if (_oppositionsMove >= 0)
             {
                 //got a move, stop waiting
                 tmrMove.Stop();

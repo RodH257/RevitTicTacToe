@@ -8,9 +8,10 @@ namespace TicTacToeServer.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
+        /// <summary>
+        /// Show basic index page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();

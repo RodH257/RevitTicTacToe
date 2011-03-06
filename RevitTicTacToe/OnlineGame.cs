@@ -8,16 +8,19 @@ using Autodesk.Revit.DB;
 
 namespace RevitTicTacToe
 {
+    /// <summary>
+    /// Game for Online Play
+    /// </summary>
     public class OnlineGame : IGame
     {
         private UIDocument _uiDoc;
         private BoardManager _boardManager;
         private ScoreKeeper _scoreKeeper;
-        private MultiplayerServer _server;
+        private OnlineServer _server;
         private int _sessionId;
         private string _playerId;
 
-        public OnlineGame(UIDocument uiDoc, BoardManager boardManager, ScoreKeeper scoreKeeper, MultiplayerServer multiplayerServer,
+        public OnlineGame(UIDocument uiDoc, BoardManager boardManager, ScoreKeeper scoreKeeper, OnlineServer multiplayerServer,
             string currentUserId)
         {
             _uiDoc = uiDoc;
@@ -119,7 +122,8 @@ namespace RevitTicTacToe
                     _server.SendMove(_sessionId, _playerId, roomEntered);
                     return true;
                 }
-            } catch(OperationCanceledException ex)
+            }
+            catch (Autodesk.Revit.Exceptions.OperationCanceledException)
             {
                 //user cancelled
                 return false;

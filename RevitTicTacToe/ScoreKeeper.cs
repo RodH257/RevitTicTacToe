@@ -56,8 +56,11 @@ namespace RevitTicTacToe
         /// </summary>
         public void ResetScores()
         {
+            Transaction transaction = new Transaction(_dbDoc);
+            transaction.Start("Score Reset");
             _xScore.Text = X_SCORE_PRE_TEXT + 0;
             _oScore.Text = O_SCORE_PRE_TEXT + 0;
+            transaction.Commit();
         }
 
         /// <summary>

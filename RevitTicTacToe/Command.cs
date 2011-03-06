@@ -18,7 +18,6 @@ namespace RevitTicTacToe
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
     {
-
         private Document _dbDoc;
         private UIDocument _uiDoc;
         private BoardManager _boardManager;
@@ -26,15 +25,26 @@ namespace RevitTicTacToe
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-
-
             //setup class variables 
             _dbDoc = commandData.Application.ActiveUIDocument.Document;
             _uiDoc = commandData.Application.ActiveUIDocument;
 
+            //setup ScoreKeeper
+            _scoreKeeper = new ScoreKeeper(_dbDoc);
+
             //Find out which game to play 
             NewGameMenu menu = new NewGameMenu();
-            if (menu.ShowDialog() != DialogResult.OK)
+            DialogResult result = menu.ShowDialog();
+
+            //check if they want to reset the scores
+            //using a dialog result of No to trigger this.
+            if (result == DialogResult.No)
+            {
+                _scoreKeeper.ResetScores();
+                return Result.Succeeded;
+            }
+
+            if (result != DialogResult.OK)
                 return Result.Cancelled;
 
             //setup the game
@@ -58,22 +68,18 @@ namespace RevitTicTacToe
 
             //clear the board
             _boardManager.ClearBoard();
-
-            //setup ScoreKeeper
-            _scoreKeeper = new ScoreKeeper(_dbDoc);
+            
 
             if (onlinePlay)
             {
                 string currentUser = Environment.UserName;
                 RestfulCommunicator restfulCommunicator = new RestfulCommunicator();
-                MultiplayerServer server = new MultiplayerServer(restfulCommunicator);
+                OnlineServer server = new OnlineServer(restfulCommunicator);
                 return new OnlineGame(_uiDoc, _boardManager, _scoreKeeper, server, currentUser);
             }
 
             return new LocalGame(_uiDoc, _boardManager, _scoreKeeper);
         }
-
-
 
     }
 }

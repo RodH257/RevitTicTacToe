@@ -13,6 +13,7 @@ namespace RevitTicTacToe
     /// </summary>
     public class RestfulCommunicator
     {
+        //Using a subdomain on some spare webhosting
         const string BASE_URL = "http://rttt.punchyn.com/";
         /// <summary>
         /// Sends a post request to the sever

@@ -43,8 +43,7 @@ namespace TicTacToeServer.Controllers
         }
 
         /// <summary>
-        /// Ends the game
-        /// TODO: not currently used anywhere else, either get rid of it or add a check when joining game
+        /// Ends the game, marking it as inactive
         /// </summary>
         /// <param name="sessionId"></param>
         /// <returns>success</returns>

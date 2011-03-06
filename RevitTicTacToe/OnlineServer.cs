@@ -9,12 +9,15 @@ using Autodesk.Revit.UI;
 
 namespace RevitTicTacToe
 {
-    public class MultiplayerServer
+    /// <summary>
+    /// Interfaces with the online server
+    /// </summary>
+    public class OnlineServer
     {
         //communicator to send REST requests
         private RestfulCommunicator _restfulCommunicator;
 
-        public MultiplayerServer(RestfulCommunicator communicator)
+        public OnlineServer(RestfulCommunicator communicator)
         {
             _restfulCommunicator = communicator;
         }

@@ -8,7 +8,7 @@ using Autodesk.Revit.DB;
 namespace RevitTicTacToe
 {
     /// <summary>
-    /// Manages the game
+    /// Manages the game itself
     /// </summary>
     public class BoardManager
     {

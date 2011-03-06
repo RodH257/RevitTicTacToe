@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OnlineGameForm));
             this.txtSessionId = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
@@ -40,7 +41,7 @@
             // 
             this.txtSessionId.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSessionId.Location = new System.Drawing.Point(94, 225);
-            this.txtSessionId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSessionId.Margin = new System.Windows.Forms.Padding(4);
             this.txtSessionId.Name = "txtSessionId";
             this.txtSessionId.Size = new System.Drawing.Size(296, 29);
             this.txtSessionId.TabIndex = 0;
@@ -49,7 +50,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(90, 199);
+            this.label1.Location = new System.Drawing.Point(90, 180);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(159, 22);
@@ -60,11 +61,11 @@
             // 
             this.btnOk.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOk.Location = new System.Drawing.Point(182, 300);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(268, 56);
             this.btnOk.TabIndex = 2;
-            this.btnOk.Text = "OK";
+            this.btnOk.Text = "Start Game";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -72,7 +73,7 @@
             // 
             this.btnNewSession.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewSession.Location = new System.Drawing.Point(398, 219);
-            this.btnNewSession.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNewSession.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewSession.Name = "btnNewSession";
             this.btnNewSession.Size = new System.Drawing.Size(205, 40);
             this.btnNewSession.TabIndex = 3;
@@ -115,9 +116,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSessionId);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OnlineGameForm";
-            this.Text = "OnlineGameForm";
+            this.Text = "Online Play";
             this.ResumeLayout(false);
             this.PerformLayout();
 
