@@ -19,7 +19,7 @@ namespace RevitTicTacToe
         //line drawer to fill in X's and O's
         private LineDrawer _lineDrawer;
         private Document _dbDoc;
-        
+
         public BoardManager(Document dbDoc)
         {
             _dbDoc = dbDoc;
@@ -54,7 +54,7 @@ namespace RevitTicTacToe
         /// <param name="xyz"></param>
         /// <param name="currentPlayer"></param>
         /// <returns></returns>
-        internal bool ProcessRoom(XYZ xyz, bool currentPlayer)
+        internal int ProcessRoom(XYZ xyz, bool currentPlayer)
         {
             Transaction transaction = new Transaction(_dbDoc);
             transaction.Start("Move");
@@ -66,16 +66,33 @@ namespace RevitTicTacToe
                 if (currentRoom.IsPointInRoom(xyz))
                 {
                     if (_board[i] != null)
-                        return false;
+                        return -1;
                     _board[i] = currentPlayer;
                     //mark the room
                     _lineDrawer.DrawMove(currentPlayer, currentRoom);
                     transaction.Commit();
-                    return true;
+                    return i;
                 }
             }
             transaction.RollBack();
-            return false;
+            return -1;
+        }
+
+
+        /// <summary>
+        /// Process room via integer - for online play
+        /// </summary>
+        /// <param name="turn"></param>
+        /// <param name="player"></param>
+        internal void ProcessRoom(int turn, bool player)
+        {
+            Transaction transaction = new Transaction(_dbDoc);
+            transaction.Start("Move");
+            _board[turn] = player;
+            //mark the room
+            Room currentRoom = _rooms[turn];
+            _lineDrawer.DrawMove(player, currentRoom);
+            transaction.Commit();
         }
 
 
@@ -170,6 +187,7 @@ namespace RevitTicTacToe
             }
             return true;
         }
+
 
 
     }

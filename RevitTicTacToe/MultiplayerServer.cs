@@ -10,74 +10,77 @@ namespace RevitTicTacToe
 {
     public class MultiplayerServer
     {
-        private const string BASE_URL = "http://rttt.punchyn.com/";
-        public string StartNewGame()
+        //communicator to send REST requests
+        private RestfulCommunicator _restfulCommunicator;
+
+        public MultiplayerServer(RestfulCommunicator communicator)
         {
-            string result = NewPostRequest("Game/NewGame/", new Dictionary<string, string>());
-            return result;
+            _restfulCommunicator = communicator;
         }
 
         /// <summary>
-        /// Sends a post request to the sever
+        /// Starts a new session and returns its ID
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="keyValues"></param>
         /// <returns></returns>
-        private string NewPostRequest(string method, IDictionary<string, string> keyValues)
+        internal int StartNewGame()
         {
-            Uri address = new Uri(BASE_URL + method);
-            HttpWebRequest request = WebRequest.Create(address) as HttpWebRequest;
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-
-            StringBuilder data = new StringBuilder();
-
-            bool first = true;
-            foreach (string key in keyValues.Keys)
-            {
-                if (!first)
-                    data.Append("&");
-                data.Append(key + "=" + HttpUtility.UrlEncode(keyValues[key]));
-                first = false;
-            }
-
-            byte[] byteData = UTF8Encoding.UTF8.GetBytes(data.ToString());
-            request.ContentLength = byteData.Length;
-
-            using (Stream postStream = request.GetRequestStream())
-            {
-                postStream.Write(byteData, 0, byteData.Length);
-            }
-
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            {
-                // Get the response stream  
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-
-                // Console application output  
-               return reader.ReadToEnd();
-            }
+            string result = _restfulCommunicator.NewPostRequest("Game/NewGame/", new Dictionary<string, string>());
+            return int.Parse(result);
         }
 
+        /// <summary>
+        /// Ends the session
+        /// </summary>
+        /// <param name="sessionId"></param>
+        internal void EndGame(int sessionId)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("sessionId", sessionId.ToString());
+            _restfulCommunicator.NewPostRequest("Game/EndGame/", parameters);
+        }
 
         /// <summary>
-        /// Sends a get request to the server
+        /// Gets wether the player is an X or an O
         /// </summary>
-        /// <param name="method"></param>
+        /// <param name="sessionId"></param>
+        /// <param name="playerId"></param>
         /// <returns></returns>
-        private string NewGetRequest(string method)
+        internal bool GetPlayerType(int sessionId, Guid playerId)
         {
-            HttpWebRequest request = WebRequest.Create(BASE_URL + method) as HttpWebRequest;
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("sessionId", sessionId.ToString());
+            parameters.Add("playerId", playerId.ToString());
 
-            // Get response  
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            {
-                // Get the response stream  
-                StreamReader reader = new StreamReader(response.GetResponseStream());
+            return bool.Parse(_restfulCommunicator.NewPostRequest("Game/GetPlayerType/", parameters));
+        }
 
-                // Console application output  
-                return reader.ReadToEnd();
-            }  
+        /// <summary>
+        /// Sends the move to the server
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="playerId"></param>
+        /// <param name="roomEntered"></param>
+        internal void SendMove(int sessionId, Guid playerId, int roomEntered)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("sessionId", sessionId.ToString());
+            parameters.Add("playerId", playerId.ToString());
+            parameters.Add("room", roomEntered.ToString());
+
+            _restfulCommunicator.NewPostRequest("Game/DoMove/", parameters);
+        }
+
+        /// <summary>
+        /// Checks for the oppositions move
+        /// </summary>
+        /// <returns></returns>
+        internal int CheckForOppositionsMove(int sessionId, Guid playerId)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("sessionId", sessionId.ToString());
+            parameters.Add("playerId", playerId.ToString());
+
+            return int.Parse(_restfulCommunicator.NewPostRequest("Game/GetLatestMove/", parameters));
         }
     }
 }

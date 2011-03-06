@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
@@ -33,6 +34,27 @@ namespace RevitTicTacToe
             _dbDoc = commandData.Application.ActiveUIDocument.Document;
             _uiDoc = commandData.Application.ActiveUIDocument;
 
+            //Find out which game to play 
+            NewGameMenu menu = new NewGameMenu();
+            if (menu.ShowDialog() != DialogResult.OK)
+                return Result.Cancelled;
+
+            //setup the game
+            IGame game = SetupGame(menu.IsOnlineGame());
+
+            //run the game
+            game.StartGame();
+
+            return Result.Succeeded;
+        }
+
+        /// <summary>
+        /// Sets up eithr a local game or online game
+        /// </summary>
+        /// <param name="onlinePlay"></param>
+        /// <returns></returns>
+        private IGame SetupGame(bool onlinePlay)
+        {
             //setup board manager
             _boardManager = new BoardManager(_dbDoc);
 
@@ -42,71 +64,17 @@ namespace RevitTicTacToe
             //setup ScoreKeeper
             _scoreKeeper = new ScoreKeeper(_dbDoc);
 
-            MultiplayerServer server = new MultiplayerServer();
-            TaskDialog.Show("result", server.StartNewGame());
-
-            //run the game
-            DoGame();
-
-            return Result.Succeeded;
-        }
-
-
-
-        /// <summary>
-        /// Does the game
-        /// </summary>
-        private void DoGame()
-        {
-            int moveCounter = 0;
-            //start off the player as X player
-            bool currentPlayer = ScoreKeeper.X_PLAYER;
-
-            //loop for each move
-            while (moveCounter <= 8)
+            if (onlinePlay)
             {
-                //construct message for status bar 
-                string displayText = "Player X's turn";
-                if (currentPlayer == ScoreKeeper.O_PLAYER)
-                    displayText = "Player O's turn";
-
-                try
-                {
-                    //get the user to pick a point
-                    XYZ xyz = _uiDoc.Selection.PickPoint(displayText);
-
-                    //Process the room, if its not a valid selection, loop again
-                    if (!_boardManager.ProcessRoom(xyz, currentPlayer))
-                        continue;
-
-                    bool? winner = _boardManager.CheckWinner();
-                    if (winner == null)
-                    {
-                        //increment move counter
-                        moveCounter++;
-                        //swap player
-                        currentPlayer = !currentPlayer;
-                        continue;
-                    }
-
-                    if (winner == ScoreKeeper.X_PLAYER)
-                    {
-                        _scoreKeeper.IncrementX();
-                        TaskDialog.Show("Winner!", "X player wins");
-                        return;
-                    }
-                    if (winner == ScoreKeeper.O_PLAYER)
-                    {
-                        _scoreKeeper.IncrementO();
-                        TaskDialog.Show("Winner!", "O player wins");
-                        return;
-                    }
-                }
-                catch
-                {
-                    return;
-                }
+                RestfulCommunicator restfulCommunicator = new RestfulCommunicator();
+                MultiplayerServer server = new MultiplayerServer(restfulCommunicator);
+                return new OnlineGame(_uiDoc, _boardManager, _scoreKeeper, server);
             }
+
+            return new LocalGame(_uiDoc, _boardManager, _scoreKeeper);
         }
+
+
+
     }
 }
