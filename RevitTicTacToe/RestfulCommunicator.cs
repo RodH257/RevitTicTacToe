@@ -61,10 +61,27 @@ namespace RevitTicTacToe
         /// Sends a get request to the server
         /// </summary>
         /// <param name="method"></param>
+        /// <param name="keyValues"></param>
         /// <returns></returns>
-        public string NewGetRequest(string method)
+        public string NewGetRequest(string method, IDictionary<string, string> keyValues)
         {
-            HttpWebRequest request = WebRequest.Create(BASE_URL + method) as HttpWebRequest;
+            StringBuilder url = new StringBuilder();
+            url.Append(BASE_URL);
+            url.Append(method);
+            url.Append("?");
+
+            bool first = true;
+            foreach (string key in keyValues.Keys)
+            {
+                if (!first)
+                    url.Append("&");
+                url.Append(key);
+                url.Append("=");
+                url.Append(keyValues[key]);
+                first = false;
+            }
+
+            HttpWebRequest request = WebRequest.Create(url.ToString()) as HttpWebRequest;
 
             // Get response  
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)

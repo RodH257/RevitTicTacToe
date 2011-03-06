@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TicTacToeDb">
+  <DataContextMoniker Name="/TicTacToeDbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="698450a9-d75a-464b-885d-5992e0e2a3d6" absoluteBounds="3.625, 1.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/TicTacToeDbDataContext/Move" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5694e139-bdc2-4a2a-a74b-b5daf8f6cc6d" absoluteBounds="3.64, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b11a951f-e2bf-4a5b-8a4d-aa5a14f9f633" absoluteBounds="1.375, 1.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/TicTacToeDbDataContext/Game" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7bbf280-b799-4049-a10d-3bd827f1ca74" absoluteBounds="1.3900000000000001, 2.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

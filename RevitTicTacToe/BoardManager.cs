@@ -118,7 +118,7 @@ namespace RevitTicTacToe
         public bool? CheckWinner()
         {
             const int BOARD_LENGTH = 3;
-            for (int i = 0; i < BOARD_LENGTH; i++)
+            for (int i = 0; i < BOARD_LENGTH * BOARD_LENGTH; i++)
             {
                 bool? currentPosition = _board[i];
 

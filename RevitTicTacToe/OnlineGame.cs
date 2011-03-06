@@ -10,20 +10,21 @@ namespace RevitTicTacToe
 {
     public class OnlineGame : IGame
     {
-
         private UIDocument _uiDoc;
         private BoardManager _boardManager;
         private ScoreKeeper _scoreKeeper;
         private MultiplayerServer _server;
         private int _sessionId;
-        private Guid _playerId;
+        private string _playerId;
 
-        public OnlineGame(UIDocument uiDoc, BoardManager boardManager, ScoreKeeper scoreKeeper, MultiplayerServer multiplayerServer)
+        public OnlineGame(UIDocument uiDoc, BoardManager boardManager, ScoreKeeper scoreKeeper, MultiplayerServer multiplayerServer,
+            string currentUserId)
         {
             _uiDoc = uiDoc;
             _boardManager = boardManager;
             _scoreKeeper = scoreKeeper;
             _server = multiplayerServer;
+            _playerId = currentUserId;
         }
 
         /// <summary>
@@ -31,17 +32,13 @@ namespace RevitTicTacToe
         /// </summary>
         public void StartGame()
         {
-
-            //Setup a GUID to ID this user
-            _playerId = Guid.NewGuid();
-
             //Show the session ID screen with option to generate new one 
             OnlineGameForm form = new OnlineGameForm(this);
             form.ShowDialog();
 
             //get Session ID selected
-            int sessionId = form.GetEnteredSessionId();
-            if (sessionId < 0)
+            _sessionId = form.GetEnteredSessionId();
+            if (_sessionId < 0)
                 throw new InvalidSessionIdException("You must enter a valid Session Id");
 
             //now we are in a session, we'll see who is X and who is O
@@ -87,7 +84,7 @@ namespace RevitTicTacToe
         /// <returns></returns>
         public int GetNewSessionIdFromServer()
         {
-            return _server.StartNewGame();
+            return _server.StartNewGame(_playerId);
         }
 
         /// <summary>
@@ -96,7 +93,7 @@ namespace RevitTicTacToe
         /// <returns></returns>
         public bool GetCurrentPlayerType()
         {
-            return _server.GetPlayerType(_sessionId, _playerId);
+            return _server.JoinGame(_sessionId, _playerId);
         }
 
 
@@ -122,8 +119,9 @@ namespace RevitTicTacToe
                     _server.SendMove(_sessionId, _playerId, roomEntered);
                     return true;
                 }
-            } catch
+            } catch(OperationCanceledException ex)
             {
+                //user cancelled
                 return false;
             }
         }
@@ -146,7 +144,7 @@ namespace RevitTicTacToe
                     return false;
 
                 _boardManager.ProcessRoom(turn, oppositionPlayer);
-
+                return true;
             }
 
             //they must have wanted to close the game so exit

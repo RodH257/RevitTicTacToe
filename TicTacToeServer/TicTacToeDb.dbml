@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TicTacToeDb" Class="TicTacToeDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=punchyn.com;Initial Catalog=tictactoe;Persist Security Info=True;User ID=tictactoe" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicTacToeDbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="Moves">
+    <Type Name="Move">
+      <Column Name="SessionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PlayerId" Type="System.String" DbType="VarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoomNumber" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="Games">
+    <Type Name="Game">
+      <Column Name="SessionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="XPlayer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="OPlayer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LastTurn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

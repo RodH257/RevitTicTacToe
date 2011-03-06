@@ -13,11 +13,13 @@ namespace RevitTicTacToe
     {
         private MultiplayerServer _server;
         private int _sessionid;
-        private Guid _currentPlayerId;
+        private string _currentPlayerId;
         private int _oppositionsMove;
-        public WaitingOnOtherPlayerForm(MultiplayerServer server, int sessionid, Guid currentPlayerId)
+        public WaitingOnOtherPlayerForm(MultiplayerServer server, int sessionid, string currentPlayerId)
         {
             _server = server;
+            _sessionid = sessionid;
+            _currentPlayerId = currentPlayerId;
             InitializeComponent();
             tmrMove.Interval = 2000;
             tmrMove.Tick += new EventHandler(tmrMove_Tick);

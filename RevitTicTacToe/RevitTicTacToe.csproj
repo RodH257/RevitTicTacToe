@@ -53,6 +53,7 @@
     <Compile Include="BoardManager.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="IGame.cs" />
+    <Compile Include="InvalidSessionIdException.cs" />
     <Compile Include="LineDrawer.cs" />
     <Compile Include="LocalGame.cs" />
     <Compile Include="OnlineGame.cs" />
@@ -69,8 +70,16 @@
     <Compile Include="OnlineGameForm.Designer.cs">
       <DependentUpon>OnlineGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrematureGameCancellationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestfulCommunicator.cs" />
     <Compile Include="ScoreKeeper.cs" />
+    <Compile Include="WaitingOnOtherPlayerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitingOnOtherPlayerForm.Designer.cs">
+      <DependentUpon>WaitingOnOtherPlayerForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NewGameMenu.resx">
@@ -78,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OnlineGameForm.resx">
       <DependentUpon>OnlineGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingOnOtherPlayerForm.resx">
+      <DependentUpon>WaitingOnOtherPlayerForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

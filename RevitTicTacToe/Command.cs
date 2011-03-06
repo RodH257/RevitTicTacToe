@@ -26,9 +26,7 @@ namespace RevitTicTacToe
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            //show instructions
-            TaskDialog.Show("Instructions", "The game will start with player X's turn, " +
-                                            "click on a room to place your X, then pass the mouse to O. Press Escape to exit.");
+
 
             //setup class variables 
             _dbDoc = commandData.Application.ActiveUIDocument.Document;
@@ -66,9 +64,10 @@ namespace RevitTicTacToe
 
             if (onlinePlay)
             {
+                string currentUser = Environment.UserName;
                 RestfulCommunicator restfulCommunicator = new RestfulCommunicator();
                 MultiplayerServer server = new MultiplayerServer(restfulCommunicator);
-                return new OnlineGame(_uiDoc, _boardManager, _scoreKeeper, server);
+                return new OnlineGame(_uiDoc, _boardManager, _scoreKeeper, server, currentUser);
             }
 
             return new LocalGame(_uiDoc, _boardManager, _scoreKeeper);

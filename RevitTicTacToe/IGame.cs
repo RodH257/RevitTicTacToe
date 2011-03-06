@@ -8,6 +8,5 @@ namespace RevitTicTacToe
     interface IGame
     {
         void StartGame();
-
     }
 }

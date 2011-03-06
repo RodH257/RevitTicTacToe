@@ -24,6 +24,10 @@ namespace RevitTicTacToe
         /// </summary>
         public void StartGame()
         {
+            //show instructions
+            TaskDialog.Show("Instructions", "The game will start with player X's turn, " +
+                                            "click on a room to place your X, then pass the mouse to O. Press Escape to exit.");
+
             int moveCounter = 0;
             //start off the player as X player
             bool currentPlayer = ScoreKeeper.X_PLAYER;
@@ -69,7 +73,7 @@ namespace RevitTicTacToe
                         return;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     return;
                 }

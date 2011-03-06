@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using Autodesk.Revit.UI;
 
 namespace RevitTicTacToe
 {
@@ -21,10 +22,13 @@ namespace RevitTicTacToe
         /// <summary>
         /// Starts a new session and returns its ID
         /// </summary>
+        /// <param name="playerId">player who created the game</param>
         /// <returns></returns>
-        internal int StartNewGame()
+        internal int StartNewGame(string playerId)
         {
-            string result = _restfulCommunicator.NewPostRequest("Game/NewGame/", new Dictionary<string, string>());
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("playerId", playerId.ToString());
+            string result = _restfulCommunicator.NewPostRequest("Game/NewGame/", parameters);
             return int.Parse(result);
         }
 
@@ -45,13 +49,25 @@ namespace RevitTicTacToe
         /// <param name="sessionId"></param>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        internal bool GetPlayerType(int sessionId, Guid playerId)
+        internal bool JoinGame(int sessionId, string playerId)
         {
             var parameters = new Dictionary<string, string>();
             parameters.Add("sessionId", sessionId.ToString());
             parameters.Add("playerId", playerId.ToString());
 
-            return bool.Parse(_restfulCommunicator.NewPostRequest("Game/GetPlayerType/", parameters));
+            string result = _restfulCommunicator.NewPostRequest("Game/JoinGame/", parameters);
+
+            if (result == "INVALID_GAME")
+            {
+                TaskDialog.Show("Invalid Game", "That game does not exist or has already ended");
+                throw new Exception("Invalid Game");
+            } else if  (result == "TOO_MANY_PLAYERS")
+            {
+                TaskDialog.Show("Game Full", "There are already 2 players in that game");
+                throw new Exception("Game Full");
+            }
+
+            return bool.Parse(result);
         }
 
         /// <summary>
@@ -60,7 +76,7 @@ namespace RevitTicTacToe
         /// <param name="sessionId"></param>
         /// <param name="playerId"></param>
         /// <param name="roomEntered"></param>
-        internal void SendMove(int sessionId, Guid playerId, int roomEntered)
+        internal void SendMove(int sessionId, string playerId, int roomEntered)
         {
             var parameters = new Dictionary<string, string>();
             parameters.Add("sessionId", sessionId.ToString());
@@ -74,13 +90,13 @@ namespace RevitTicTacToe
         /// Checks for the oppositions move
         /// </summary>
         /// <returns></returns>
-        internal int CheckForOppositionsMove(int sessionId, Guid playerId)
+        internal int CheckForOppositionsMove(int sessionId, string playerId)
         {
             var parameters = new Dictionary<string, string>();
             parameters.Add("sessionId", sessionId.ToString());
             parameters.Add("playerId", playerId.ToString());
 
-            return int.Parse(_restfulCommunicator.NewPostRequest("Game/GetLatestMove/", parameters));
+            return int.Parse(_restfulCommunicator.NewGetRequest("Game/GetLatestMove/", parameters));
         }
     }
 }

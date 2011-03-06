@@ -25,11 +25,15 @@ namespace RevitTicTacToe
         private void btnLocal_Click(object sender, EventArgs e)
         {
             _onlineSelected = false;
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnOnline_Click(object sender, EventArgs e)
         {
             _onlineSelected = true;
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }
